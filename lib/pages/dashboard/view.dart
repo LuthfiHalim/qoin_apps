@@ -26,6 +26,7 @@ class _DashboardPageState extends ViewState<DashboardPage, DashboardController>
   Widget get view {
     double scaleWidth = MediaQuery.of(context).size.width / 375;
     return new Scaffold(
+      key: globalKey,
       body: ListView(children: <Widget>[
         Container(
           width: 375 * scaleWidth,
@@ -67,7 +68,7 @@ class _DashboardPageState extends ViewState<DashboardPage, DashboardController>
                     width: 120 * scaleWidth,
                     height: 21 * scaleWidth,
                     child: AutoSizeText(
-                      "Hi, Username",
+                      "Hi, ${controller.userData.login.userName}",
                       maxFontSize: 40,
                       minFontSize: 10,
                       maxLines: 1,
@@ -78,17 +79,19 @@ class _DashboardPageState extends ViewState<DashboardPage, DashboardController>
                 }),
               ),
               Positioned(
-                left: 331 * scaleWidth,
-                top: 37 * scaleWidth,
-                child: InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: 19 * scaleWidth,
-                    height: 19 * scaleWidth,
-                    child: Image.asset("lib/assets/images/menu.png"),
-                  ),
-                ),
-              ),
+                  left: 331 * scaleWidth,
+                  top: 37 * scaleWidth,
+                  child: ControlledWidgetBuilder<DashboardController>(
+                      builder: (context, controller) {
+                    return InkWell(
+                      onTap: controller.onMenuPressed,
+                      child: Container(
+                        width: 19 * scaleWidth,
+                        height: 19 * scaleWidth,
+                        child: Image.asset("lib/assets/images/menu.png"),
+                      ),
+                    );
+                  })),
             ],
           ),
         ),
@@ -326,13 +329,14 @@ class _DashboardPageState extends ViewState<DashboardPage, DashboardController>
           ),
         ),
         Container(
+          margin: EdgeInsets.fromLTRB(25 * scaleWidth, 0, 25 * scaleWidth, 0),
           width: 375 * scaleWidth,
           height: 212 * scaleWidth,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomBox(
                     title: "Send Money",
@@ -353,7 +357,7 @@ class _DashboardPageState extends ViewState<DashboardPage, DashboardController>
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomBox(
                     title: "Cashback Offer",
