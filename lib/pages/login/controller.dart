@@ -1,10 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:intl/intl.dart';
+import 'package:qoin_apps/domains/login.dart';
+import 'package:qoin_apps/pages/contract/base_controller.dart';
+import 'package:qoin_apps/pages/dashboard/view.dart';
 
-class LoginController extends Controller with WidgetsBindingObserver {
+class LoginController extends BaseController {
   String time = "06:20 PM";
   String temp = "34° C";
   String date = "Nov.10.2020 | Wednesday";
@@ -17,11 +18,23 @@ class LoginController extends Controller with WidgetsBindingObserver {
 
   @override
   void initListeners() {
+    super.initListeners();
     Timer.periodic(Duration(seconds: 1), (timer) {
       time = timeFormat.format(DateTime.now());
       date = dateFormat.format(DateTime.now());
       refreshUI();
     });
+  }
+
+  void onSignInPressed() {
+    super.userData.save(Login(
+        userName: userNameController.text, password: passwordController.text));
+    Navigator.pushReplacement(
+      getContext(),
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => DashboardPage(),
+      ),
+    );
   }
 
   @override

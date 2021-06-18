@@ -25,6 +25,7 @@ class _LoginPageState extends ViewState<LoginPage, LoginController>
   Widget get view {
     double scaleWidth = MediaQuery.of(context).size.width / 375;
     return new Scaffold(
+      key: globalKey,
       body: ListView(
         children: <Widget>[
           Container(
@@ -245,38 +246,44 @@ Join For Free.""",
           Container(
             height: 26 * scaleWidth,
           ),
-          Container(
-            width: 375 * scaleWidth,
-            height: 54 * scaleWidth,
-            padding:
-                EdgeInsets.fromLTRB(23 * scaleWidth, 0, 23 * scaleWidth, 0),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  backgroundColor:
-                      MaterialStateProperty.all(AppConstants.COLOR_ORANGE)),
-              onPressed: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Sign in",
-                    style: TextStyle(fontSize: 16, color: Colors.black,fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    width: 20,
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    color: Colors.black,
-                  )
-                ],
+          ControlledWidgetBuilder<LoginController>(
+              builder: (context, controller) {
+            return Container(
+              width: 375 * scaleWidth,
+              height: 54 * scaleWidth,
+              padding:
+                  EdgeInsets.fromLTRB(23 * scaleWidth, 0, 23 * scaleWidth, 0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                    backgroundColor:
+                        MaterialStateProperty.all(AppConstants.COLOR_ORANGE)),
+                onPressed: controller.onSignInPressed,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Sign in",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      width: 20,
+                    ),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Colors.black,
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
+            );
+          })
         ],
       ),
     );
