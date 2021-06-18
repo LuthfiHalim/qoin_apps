@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:qoin_apps/pages/contract/base_controller.dart';
+import 'package:qoin_apps/pages/login/view.dart';
 
-class MenuController extends Controller with WidgetsBindingObserver {
-  MenuController(): super();
-  
+class MenuController extends BaseController {
+  MenuController() : super();
 
   @override
   void initListeners() {
-    WidgetsBinding.instance?.addObserver(this);
+    super.initListeners();
+  }
+
+  onLogOutPressed() {
+    userData.clear();
+    Navigator.pushReplacement(
+      getContext(),
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => LoginPage(),
+      ),
+    );
   }
 
   @override
