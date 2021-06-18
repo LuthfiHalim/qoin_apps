@@ -21,8 +21,15 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  auto_size_text: 2.1.0
+  dio: 4.0.0
   flutter:
     sdk: flutter
+  flutter_clean_architecture: 5.0.0
+  injector: 2.0.0
+  package_info: 2.0.2
+  path_provider: 2.0.2
+  shared_preferences: 2.0.6
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -38,7 +45,18 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  assets:
+    - lib/assets/images/
+    - lib/assets/icons/
+    - lib/assets/files/
+  fonts:
+    - family: AvenirNext
+      fonts:
+        - asset: lib/assets/fonts/AvenirNext-Regular.otf
+        - asset: lib/assets/fonts/AvenirNext-Italic.otf
+          style: italic
+        - asset: lib/assets/fonts/AvenirNext-Bold.otf
+          weight: 700
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
